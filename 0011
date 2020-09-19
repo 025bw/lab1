@@ -1,0 +1,143 @@
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int opt;
+int dec=0;
+int num;
+int pos=0;
+int place=0;
+int factor(int num)
+{
+	int fac=1,mul,i;
+	if(opt==1)mul=2;
+	if(opt==2)mul=8;
+	if(opt==3)mul=16;
+	for(i=0;i<num;i++)
+	{
+		fac=fac*mul;
+	}
+	return fac;
+}
+
+
+b_to_d()
+{
+	int bi[1000];
+	printf("Enter binary number: ");
+	while(1==1)
+	{
+		int in=getch();
+		if(in==48||in==49)
+		{	bi[pos]=in-48;
+			printf("%d",bi[pos]);
+			pos++;	}
+		if(in==13&&pos!=0)	{	break;	}
+	}	
+
+	for(num=pos-1;num>-1;num--){
+		dec=bi[num]*factor(place)+dec;
+		place++;}			
+	end();
+}
+
+o_to_d(){
+	int oc[1000];
+	printf("Enter octal number: ");
+	while(1==1)
+	{
+		int in=getch();
+		if(in>47&&in<56)
+		{	oc[pos]=in-48;
+			printf("%d",oc[pos]);
+			pos++;	}
+		if(in==13&&pos!=0)	{	break;	}
+	}	
+	int place=0;
+	for(num=pos-1;num>-1;num--){
+		dec=oc[num]*factor(place)+dec;
+		place++;}			
+	end();
+}
+
+
+h_to_d(){
+	int hex[1000];
+	printf("Enter hexadecimal number: ");
+	while(1==1)
+	{
+		char ch=getch();
+		int in=ch;
+		if(in>47&&in<58)
+		{	hex[pos]=in-48;
+			printf("%d",hex[pos]);
+			pos++;	}
+		if(in>96&&in<103)
+		{	hex[pos]=in-87;
+			printf("%c",ch);
+			pos++;	}
+		if(in>64&&in<71)
+		{	hex[pos]=in-55;
+			printf("%c",ch);
+			pos++;	}	
+		if(in==13&&pos!=0)	{	break;	}
+	}	
+	int place=0;
+	for(num=pos-1;num>-1;num--){
+		dec=hex[num]*factor(place)+dec;
+		place++;}			
+	end();
+}
+
+ui(){
+printf("1. Convert binary number to decimal number\n");
+printf("2. Convert octal number to decimal number\n");
+printf("3. Convert hexadecimal number to decimal number\n");
+printf("4. Exit\n");
+printf(" Please choose number (1 - 4): ");
+}
+
+
+opIN(int* opt){	
+    while(1==1){
+    *opt = getch();
+	if((48<*opt)&&(*opt<53))
+	{
+	*opt=*opt-48;
+	printf("%d\n",*opt);break;
+	}
+}
+
+
+}
+choice(int opt)
+{
+	if(opt==1)
+		b_to_d();
+	else if(opt==2)
+		o_to_d();
+	else if(opt==3)
+		h_to_d();
+	else if(opt==4) exit(0);
+}
+
+
+end()
+{
+	printf("\nDecimal number is: %d\n",dec);
+	dec=0;	num=0;	pos=0;	place=0;
+	printf("Press enter to continue, Esc to return the main menu\n");
+	while(1==1){
+	int delay = getch();
+	if(delay==13)choice(opt);
+	if(delay==27)main();
+	}
+}
+int main()
+{
+	
+	ui();
+	opIN(&opt);
+	choice(opt); 
+}
