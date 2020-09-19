@@ -1,0 +1,59 @@
+#include <string.h>
+#include <stdio.h>
+#include <math.h>
+
+F1(int* num){
+	int temp=-1;
+	char in[1000];
+	int count=0;
+	printf("Convert Decimal to Binary program\n");
+	while(*num==-1){
+	printf("        Enter a positive number: ");
+	scanf("%s",in);
+	temp = atoi(in);
+	*num = temp;
+	while(temp!=0)
+	{
+		temp=temp/10;
+		count++;
+	}
+	if(count==strlen(in))
+	{
+	break;
+	}
+	*num=-1;
+	count=0;
+}
+}
+F2(int num,int* bin){
+	if(num==0)*bin=0;
+	int x[1000];
+	int pos=0;
+	int mod;
+	while(num!=0)
+	{
+		mod = num%2;
+		if(mod==0)	{	x[pos]=0;	}
+		if(mod==1)	{	x[pos]=1;	}
+		pos++;
+		num=num/2;
+	}
+	for(pos=pos-1;pos>=0;pos--)
+{
+	*bin=*bin*10+x[pos];
+}	
+}
+
+F3(int bin){
+	printf("        Binary number: %d\nPress any key to do another conversation.\n\n",bin);
+	getch();
+	main();
+}
+int main(){
+	int x=-1;
+	int bin=0;
+	F1(&x);
+	F2(x,&bin);
+	F3(bin);
+	
+}
