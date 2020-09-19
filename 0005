@@ -1,0 +1,33 @@
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+	table(int inp){
+	printf("%d\nMultiplication table for %d number:",inp,inp);
+	int mul;
+	for(mul=1;mul<11;mul++)
+	{
+	printf("\n%d x %d = %d",inp,mul,inp*mul);
+	}
+}
+	end(){
+	printf("\n-------------------------------------------\nPress enter to continue, Esc to exit.\n");
+	while(1==1){
+	int delay = getch();
+	if(delay==27)exit(0);
+	if(delay==13)
+		{	
+		printf("\n");
+		main();
+		}
+	}
+}
+ 	int main(){
+    int input;
+	printf("Please enter a number (1 - 9): ");
+    while(1==1){
+    input = getch();
+	if(48<input<58)break;
+	}
+	table(input-48);
+	end();
+}
