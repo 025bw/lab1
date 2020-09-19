@@ -25,6 +25,7 @@ F1(int* num){
 	count=0;
 }
 }
+
 F2(int num,int* bin){
 	if(num==0)*bin=0;
 	int x[1000];
@@ -45,10 +46,12 @@ F2(int num,int* bin){
 }
 
 F3(int bin){
-	printf("        Binary number: %d\nPress any key to do another conversation.\n\n",bin);
+	printf("        Binary number: %d\n",bin);
+	printf("Press any key to do another conversation.\n\n");
 	getch();
 	main();
 }
+
 int main(){
 	int x=-1;
 	int bin=0;
