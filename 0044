@@ -7,14 +7,19 @@ input(){
 	printf("Input integer:");
 	int temp=0;
 	int y=0;
+	int sign;
 	while(1==1){
-		int x=getch();		
+		int x=getch();
+		if(x==45&&y==0){	
+		printf("-");	sign=-1;
+		}				
 		if(x>47&&x<58){
 			temp=temp*10+x-48;
 			printf("%d",x-48);
 			y++;
 		}
 		if(x==13&&y>0){
+			if(sign==-1)temp=temp*-1;
 			arr[count]=temp;
 			count++;
 			printf("\n");
@@ -30,14 +35,20 @@ input(){
 inputm(){
 	int temp=0;
 	int y=0;
+	int sign=0;
 	while(1==1){
-		int x=getch();		
+		int x=getch();
+		if(x==45&&y==0){	
+		printf("-");	sign=-1;
+		}		
 		if(x>47&&x<58){
 			temp=temp*10+x-48;
 			printf("%d",x-48);
 			y++;
 		}
-		if(x==13&&y>0){	return temp;	}
+		if(x==13&&y>0){ 
+			if(sign==-1)temp=temp*-1;
+			return temp;	}
 		if(x==8&&y>0){
 		printf("\b \b");
 		y--;
@@ -58,7 +69,7 @@ displayrange(){
 	int min=inputm();
 	printf("\n");
 	int i;for(i=0;i<count;i++){
-		if(arr[i]>min&&arr[i]<max)printf("%d, ",arr[i]);
+		if(arr[i]>=min&&arr[i]<=max)printf("%d, ",arr[i]);
 	}
 	printf("\b\b  \n\n");
 }
@@ -73,8 +84,8 @@ int UI(){
 }
 sort(){
 	int sort=1;
-	while(sort>0){
-		sort=1;
+	while(sort>0){ //sort
+		sort=0; 
 		int i;for(i=0;i<count-1;i++){
 			if(arr[i]>arr[i+1]){
 				sort++;
@@ -83,8 +94,6 @@ sort(){
 				arr[i]=temp;
 			}
 		}
-		if(sort==1)
-		sort=0;
 	}
 }
 opt(){
