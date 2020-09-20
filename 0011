@@ -33,6 +33,16 @@ b_to_d()
 		{	bi[pos]=in-48;
 			printf("%d",bi[pos]);
 			pos++;	}
+		if(in==8&&pos!=1){
+		printf("\b \b");
+		pos--;
+		bi[pos]=0;
+		}
+		else if(in==8&&pos==1){
+		printf("\b \b");
+		pos--;
+		bi[pos]=-1;
+		}
 		if(in==13&&pos!=0)	{	break;	}
 	}	
 
@@ -52,6 +62,16 @@ o_to_d(){
 		{	oc[pos]=in-48;
 			printf("%d",oc[pos]);
 			pos++;	}
+		if(in==8&&pos!=1){
+		printf("\b \b");
+		pos--;
+		oc[pos]=0;
+		}
+		else if(in==8&&pos==1){
+		printf("\b \b");
+		pos--;
+		oc[pos]=-1;
+		}
 		if(in==13&&pos!=0)	{	break;	}
 	}	
 	int place=0;
@@ -80,7 +100,17 @@ h_to_d(){
 		if(in>64&&in<71)
 		{	hex[pos]=in-55;
 			printf("%c",ch);
-			pos++;	}	
+			pos++;	}
+		if(in==8&&pos!=1){
+		printf("\b \b");
+		pos--;
+		hex[pos]=0;
+		}
+		else if(in==8&&pos==1){
+		printf("\b \b");
+		pos--;
+		hex[pos]=-1;
+		}	
 		if(in==13&&pos!=0)	{	break;	}
 	}	
 	int place=0;
