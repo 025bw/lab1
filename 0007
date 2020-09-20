@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+char str[1000];
+int count;
+input(){
+	int i;
+	for(i=0;i<1000;i++){str[i]='\0';
+	}
+	count=0;
+	printf("Please enter a string:");
+	while(1==1){
+		char w=getch();
+		int in=w;
+		if((in>64&&in<91)||(in>96&&in<123)||in==32){
+			printf("%c",w);
+			str[count]=w;
+			count++;
+		}
+		else if(in==13)break;
+		else if(in==8&&count>0){
+			count--;
+			str[count]='\0';
+			printf("\b \b");
+			}
+	}
+}
+removeSpaces(char *str){ 
+    int count = 0;
+    int i;
+	for(i=0;str[i];i++) 
+        if(str[i]!=' '||str[i+1]!= ' ') 
+            str[count++] = str[i];
+    str[count]='\0'; 
+    printf("\nThe string after removing: %s\n",str);
+} 
+end(){
+	printf("Press enter to continue, Esc to exit\n");
+	while(1==1){
+		int i=getch();
+		if(i==13)main();
+		if(i==27)exit(0);
+	}
+}
+int main(){
+	input();
+	removeSpaces(str);
+	end();
+}
