@@ -1,0 +1,107 @@
+#include <stdio.h>
+#include <stdlib.h>
+int arr[100];
+int count;
+
+input(){
+	printf("Input integer:");
+	int temp=0;
+	int y=0;
+	while(1==1){
+		int x=getch();		
+		if(x>47&&x<58){
+			temp=temp*10+x-48;
+			printf("%d",x-48);
+			y++;
+		}
+		if(x==13&&y>0){
+			arr[count]=temp;
+			count++;
+			printf("\n");
+			break;
+		}
+		if(x==8&&y>0){
+		printf("\b \b");
+		y--;
+		temp=temp/10;
+		}
+	}
+}
+inputm(){
+	int temp=0;
+	int y=0;
+	while(1==1){
+		int x=getch();		
+		if(x>47&&x<58){
+			temp=temp*10+x-48;
+			printf("%d",x-48);
+			y++;
+		}
+		if(x==13&&y>0){	return temp;	}
+		if(x==8&&y>0){
+		printf("\b \b");
+		y--;
+		temp=temp/10;
+		}
+	}
+}
+display(){
+	int i;for(i=0;i<count;i++){
+		printf("%d, ",arr[i]);
+	}
+	printf("\b\b  \n\n");
+}
+displayrange(){
+	printf("Max:");
+	int max=inputm();
+	printf("\nMin:");
+	int min=inputm();
+	printf("\n");
+	int i;for(i=0;i<count;i++){
+		if(arr[i]>min&&arr[i]<max)printf("%d, ",arr[i]);
+	}
+	printf("\b\b  \n\n");
+}
+int UI(){
+	printf("1. Input array\n");
+	printf("2. Input array and display index\n");
+	printf("3. Display elements\n");
+	printf("4. Display elements within a specified range\n");
+	printf("5. Sort elements\n");
+	printf("Others: Exit the program\n");
+	printf("Option: ");
+}
+sort(){
+	int sort=1;
+	while(sort>0){
+		sort=1;
+		int i;for(i=0;i<count-1;i++){
+			if(arr[i]>arr[i+1]){
+				sort++;
+				int temp=arr[i+1];
+				arr[i+1]=arr[i];
+				arr[i]=temp;
+			}
+		}
+		if(sort==1)
+		sort=0;
+	}
+}
+opt(){
+	int o=getch();
+	if(o>48&&o<54)	printf("%d\n\n",o-48);
+	if(o==49)	{	input();	printf("\n");	}
+	else if(o==50){	input();	printf("\bIndex: %d\n\n",count);	}
+	else if(o==51){	display();	}
+	else if(o==52){	displayrange();	}
+	else if(o==53){	sort();		printf("Array is sorted\n\n");	}
+	else {
+	printf("Exit");exit(0);
+	}
+}
+int main(){
+	while(1==1){
+	UI();
+	opt();
+	}
+}
