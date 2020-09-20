@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <string.h>
+#include <conio.h>
+int num[1000];
+int no;
+input(){
+	num[no]=-1;
+	while(1==1){
+		int in=getch();
+		if(in>47&&in<58){
+			num[no]=in-48;
+			printf("%d",num[no]);
+			no++;
+		}
+		else if(in==13)break;
+		else if(in==45&&no==0){
+			num[no]=0;
+			no++;
+			printf("-");
+		}
+		else if(in==8&&no!=1){
+		printf("\b \b");
+		no--;
+		num[no]=0;
+		}
+		else if(in==8&&no==1){
+		printf("\b \b");
+		no--;
+		num[no]=-1;
+		}
+	}
+}
+sum(){
+	if(num[0]==-1){	printf("\n");	return;	}
+	int sum=0;
+	int i;
+	for(i=0;i<no;i++){
+		sum=sum+num[i];
+	}
+	printf("\nSum digit = %d\n",sum);
+	
+}
+UI(){
+	printf("\nEnter an integer n=");
+}
+main(){
+	printf("Sum Digit Program");
+	while(1==1){
+	no=0;
+	UI();
+	input();
+	sum();
+	printf("Press any key to continue.");
+	getch();
+}
+}
