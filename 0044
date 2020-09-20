@@ -82,13 +82,15 @@ int UI(){
 	printf("Others: Exit the program\n");
 	printf("Option: ");
 }
-sort(){
+sort(){ //bubble sort 
+		//until there's one pass doesnt need to be sorted
 	int sort=1;
-	while(sort>0){ //sort
-		sort=0; 
-		int i;for(i=0;i<count-1;i++){
+	while(sort>0){ 
+		sort=0;
+		int i;
+		for(i=0;i<count-1;i++){
 			if(arr[i]>arr[i+1]){
-				sort++;
+				sort++;	
 				int temp=arr[i+1];
 				arr[i+1]=arr[i];
 				arr[i]=temp;
