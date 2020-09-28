@@ -1,38 +1,160 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <termios.h>
+
+static struct termios old, current;
+
+	void initTermios(){
+	tcgetattr(0, &old); //get io settings to old
+	current = old; //copy setting from old to current
+	current.c_lflag &= ~ICANON; //enable noncanonical mode 
+	current.c_lflag &= ~ECHO; //set no echo mode
+	tcsetattr(0, TCSANOW, &current); //apply new io setting
+}
+
+//restore old io settings
+	void resetTermios(void) 
+{
+  tcsetattr(0, TCSANOW, &old);
+}
+
+	char getch() 
+{
+  char ch;
+  initTermios();
+  ch = getchar();
+  resetTermios();
+  return ch;
+}
 	
-	table(int inp){
-	printf("%d\nMultiplication table for %d number:",inp,inp);
+	void DisplaynMultiplicationTable(int inp){
+	printf("\nMultiplication table for %d number:",inp);
 	int mul;
 	for(mul=1;mul<11;mul++)
 	{
 	printf("\n%d x %d = %d",inp,mul,inp*mul);
 	}
 }
-	end(){
-	printf("\n-------------------------------------------\nPress enter to continue, Esc to exit.\n");
+	void CheckLoopProgram(){
+	printf("\n-------------------------------------------\n"
+                "Press enter to continue, Esc to exit.\n");
 	while(1==1){
 	int delay = getch();
-	if(delay==27)exit(0);
-	if(delay==13)
+	if(delay==27)exit(0);   //ascii code for "esc" is 27
+	if(delay==10)           //ascii code for "enter" on ubuntu is 10
 		{	
 		printf("\n");
 		main();
 		}
 	}
 }
-	input(int* num){	
+	int InputOneDigitOnly(){	
 	printf("Please enter a number (1 - 9): ");
-    while(1==1){
-    *num = getch();
-	if((48<*num)&&(*num<58))break;
-	else;
+        int input=0;
+        while(1==1){
+        int temp=getch();
+        //check if user enter a digit using ascii code
+	if((48<temp)&&(temp<58)){
+            printf("%d\b",temp-48);
+            input=temp;}
+        //ascii code for enter is 10
+        
+        //user hit enter without entering number
+	else if (temp==10&&input==0){
+            printf("\nYou haven't enter any number\n\n");
+            printf("Please enter a number (1 - 9): ");
 	}
+        //user entered number then hit enter
+        else if(temp==10&&(input>48&&input<58)){
+            return input;
+        }
+        //check if user delete input
+        else if(temp==127){
+            printf("\b \b");
+            input=0;
+        }
+        }
 }
+        int InputOneCharacterOnly(){	
+	printf("Please enter a number (1 - 9): ");
+        int input=0;
+        int valid=1;
+        while(1==1){
+        int temp=getch();
+        //user enter digit then mark input as valid
+	if((48<temp)&&(temp<58)){
+            printf("%d\b",temp-48);
+            input=temp;
+            valid=1;}
+        //user hit enter and input is marked valid
+        else if(temp==10&&(input>48&&input<58)&&valid==1){
+            return input;
+        }
+        //user hit enter and input is marked invalid
+        else if(temp==10&&valid==0){
+            printf("\nInvalid input\n\n");
+            valid=1;
+            input=0;
+            printf("Please enter a number (1 - 9): ");
+        }
+        //user hit enter without input
+        else if (temp==10&&input==0){
+            printf("\nYou haven't enter any number\n\n");
+            printf("Please enter a number (1 - 9): ");
+	}        
+        //user enter character then mark input as invalid
+        else if(temp>31&&temp<127){
+            printf("%c\b",temp);
+            valid=0;
+        }
+        //check if user delete input
+        else if(temp==127){
+            printf("\b \b");
+            input=0;
+        }
+        }
+}
+        int IntputMultipleCharacter(){
+        printf("Please enter a number (1 - 9): ");
+        int countCharacter=0;
+        int input=0;
+        int valid=1;
+        while(1==1){
+        int temp=getch();
+	if((48<temp)&&(temp<58)&&countCharacter==0){
+            printf("%d",temp-48);
+            input=temp;
+            valid=1;
+            countCharacter++;}
+        else if(temp==10&&(input>48&&input<58)&&countCharacter==1){
+            return input;
+        }
+        else if (temp==10&&countCharacter==0){
+            printf("\nYou haven't enter any number\n\n");
+            printf("Please enter a number (1 - 9): ");
+	}  
+        else if(temp==10&&valid==0){
+            printf("\nInvalid input\n\n");
+            valid=1;
+            input=0;
+            countCharacter=0;
+            printf("Please enter a number (1 - 9): ");
+        }      
+        else if(temp>31&&temp<127){
+            printf("%c",temp);
+            countCharacter++;
+            valid=0;
+        }
+        else if(temp==127&&countCharacter>0){
+            printf("\b \b");
+            countCharacter--;
+        }
+        }
+        }
+        
  	int main(){
- 	int num;
- 	input(&num);
-	table(num-48);
-	end();
+ 	int num=InputOneCharacterOnly();
+        DisplaynMultiplicationTable(num-48);
+	CheckLoopProgram();
 }
